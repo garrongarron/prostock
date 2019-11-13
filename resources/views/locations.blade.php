@@ -21,7 +21,7 @@
                     <p>From</p>
                     <ul>
                     @foreach ($locations as $user)
-                        <li><a href="#" var="from">Id: {{ $user->id }},  user: {{ $user->name }}, mail: {{ $user->description }} </a></li>
+                        <li><a href="#" var="from" k="{{ json_encode($user) }}">{{ $user->name }}</a></li>
                     @endforeach
                     </ul>
 
@@ -29,7 +29,7 @@
                     <p>To</p>
                     <ul>
                     @foreach ($locations as $user)
-                        <li><a href="#" var="to">Id: {{ $user->id }},  user: {{ $user->name }}, mail: {{ $user->description }} </a></li>
+                        <li><a href="#" var="to" k="{{ json_encode($user) }}">{{ $user->name }}</a></li>
                     @endforeach
                     </ul>
 

@@ -49499,15 +49499,80 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var a = document.querySelectorAll('a');
+(function (window, document) {
+  // npm run dev
+  var messages = {
+    from: 'Moving from ',
+    to: 'Moving to ',
+    batch: 'Setting batch as ' // from: 'Setting from where',
+    // from: 'Setting from where',
 
-for (var i = 0; i < a.length; i++) {
-  a[i].addEventListener('click', function (event) {
-    if (!confirm("sure u want to delete " + this.innerHTML)) {
-      event.preventDefault();
+  };
+  var actions = {
+    from: function from(that) {
+      window.storage.setLocal('from', JSON.parse(that.getAttribute('k'))); // console.log(window.storage.getLocal('from'))
+    },
+    to: function to(that) {
+      window.storage.setLocal('to', JSON.parse(that.getAttribute('k')));
+    },
+    batch: function batch(that) {
+      window.storage.setLocal('batch', JSON.parse(that.getAttribute('k')));
     }
-  });
-}
+  };
+
+  var getMsg = function getMsg(that) {
+    var v = that.getAttribute('var');
+
+    if (messages[v]) {
+      return messages[v] + '"' + that.innerHTML + '"';
+    }
+
+    return 'Are you sure?';
+  };
+
+  var triggerAction = function triggerAction(that) {
+    var v = that.getAttribute('var');
+
+    if (actions[v]) {
+      actions[v](that);
+    } // return 'Are you sure?';
+
+  };
+
+  var a = document.querySelectorAll('a');
+
+  for (var i = 0; i < a.length; i++) {
+    a[i].addEventListener('click', function (event) {
+      if (!confirm(getMsg(this))) {
+        event.preventDefault();
+      } else {
+        triggerAction(this);
+      }
+    });
+  }
+
+  var span = document.querySelectorAll('span');
+
+  for (var i = 0; i < span.length; i++) {
+    var text = span[i].getAttribute('text');
+    span[i].innerHTML = window.storage.getLocal(text).name; // console.log(window.storage.getLocal(text).name)
+  }
+
+  window.getRandomCode = function () {
+    var n = Math.floor(Math.random() * 10) + 10000;
+    document.querySelector('#item-code').value = n;
+    window.storage.setLocal('item', n);
+  };
+
+  window.save = function () {
+    console.log({
+      from: window.storage.getLocal('from').id,
+      to: window.storage.getLocal('to').id,
+      batch: window.storage.getLocal('batch').id,
+      item: window.storage.getLocal('item')
+    });
+  };
+})(window, document);
 
 /***/ }),
 

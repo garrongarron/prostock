@@ -16,15 +16,15 @@
                         </div>
                     @endif
 
-                    <b>FROM: {{ $from ?? "none" }}</b> <b>TO: {{ $to ?? "none" }}</b><br>
-                    <b>BATCH: {{ $frbatch ?? "none" }}</b><br>
+                    <b>FROM: <span text="from"></span></b> <b>TO: <span text="to"></span></b><br>
+                    <b>BATCH: <span text="batch"></span></b><br>
                     <br>
 
                     Choose Items:<br>
 
-                    <input type="text" value="" placeholder="Item Code"> <input type="button" value="Scan"/><br>
+                    <input type="text" value="" placeholder="Item Code" id="item-code"> <input type="button" value="Scan" onclick="getRandomCode()"/><br>
                     <br>
-                    <input type="button" value="Save"/>
+                    <input type="button" value="Save" onclick="save()"/>
                     
                 </div>
             </div>

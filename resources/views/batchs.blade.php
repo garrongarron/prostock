@@ -16,14 +16,14 @@
                         </div>
                     @endif
 
-                    <b>FROM: {{ $from ?? "none" }}</b> <b>TO: {{ $to ?? "none" }}</b><br>
+                    <b>FROM: <span text="from"></span></b> <b>TO: <span text="to"></span></b><br>
                     <br>
 
                     Choose Batchs:
 
                     <ul>
                     @foreach ($batchs as $user)
-                        <li><a href="#">Id: {{ $user->id }},  user: {{ $user->name }}, mail: {{ $user->description }} </a></li>
+                        <li><a href="#" var="batch" k="{{ json_encode($user) }}">{{ $user->name }}</a></li>
                     @endforeach
                     </ul>
 
