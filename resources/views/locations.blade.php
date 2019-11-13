@@ -33,7 +33,7 @@
                     @endforeach
                     </ul>
 
-                    <input type="button" value="Next"/>
+                    <input type="text" value="" placeholder="New Location"> <input type="button" value="New Location"/>
                 </div>
             </div>
         </div>

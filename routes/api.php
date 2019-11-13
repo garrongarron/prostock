@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('batchs', 'BatchsController');
 Route::apiResource('items', 'ItemsController');
 Route::apiResource('locations', 'LocationsController');
+Route::apiResource('transactions', 'TransactionsController');
+

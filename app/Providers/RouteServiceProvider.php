@@ -29,6 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('Batchs', \App\Batchs::class);
         Route::model('Items', \App\Items::class);
         Route::model('Locations', \App\Locations::class);
+        Route::model('Transactions', \App\Transactions::class);
     }
 
     /**

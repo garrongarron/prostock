@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Locations;
 use App\Batchs;
 use App\Items;
+use App\Transactions;
 
 class HomeController extends Controller
 {
@@ -74,4 +75,21 @@ class HomeController extends Controller
             ]
         );
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function transactions()
+    {
+        $transactions = Transactions::all();
+        return view('transactions')->with(
+            [
+                'transactions' => $transactions
+            ]
+        );
+    }
+
+    
 }

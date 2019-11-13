@@ -28,7 +28,7 @@ let getMsg = (that) => {
     if(messages[v]){
         return messages[v] + '"' + that.innerHTML + '"';
     }
-    return 'Are you sure?';
+    return null;
 }
 
 
@@ -44,6 +44,9 @@ let a = document.querySelectorAll('a');
 
 for (var i = 0; i < a.length; i++) {
     a[i].addEventListener('click', function(event) {
+        if(getMsg(this) === null ){
+            return false;
+        }
         if (!confirm(getMsg(this))) {
             event.preventDefault();
         } else {
@@ -56,6 +59,7 @@ for (var i = 0; i < a.length; i++) {
 let span = document.querySelectorAll('span')
 for (var i = 0; i < span.length; i++) {
     let text = span[i].getAttribute('text');
+    console.log(text)
     span[i].innerHTML = window.storage.getLocal(text).name;
     // console.log(window.storage.getLocal(text).name)
 }
@@ -68,6 +72,10 @@ window.getRandomCode = () => {
 
 
 window.save = () => {
+    let item = document.querySelector('#item-code').value;
+    if(item == ''){
+        alert("You mut to select an Item")
+    }
     console.log({
         from:window.storage.getLocal('from').id,
         to:window.storage.getLocal('to').id,
@@ -75,5 +83,27 @@ window.save = () => {
         item:window.storage.getLocal('item'),
 
     })
+
+    fetch('http://localhost:88/api/transactions', {
+        method: 'POST',
+        body: JSON.stringify({
+            from:window.storage.getLocal('from').id,
+            to:window.storage.getLocal('to').id,
+            batch:window.storage.getLocal('batch').id,
+            item:window.storage.getLocal('item'),
+            user:1
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    .then(response => response.json())
+    .then(json => {
+        console.log(json)
+        document.querySelector('#item-code').value = '';
+    });
 }
+
+
+
 })(window, document)

@@ -16,19 +16,12 @@
                         </div>
                     @endif
 
-                    <b>FROM: <span text="from"></span></b> <b>TO: <span text="to"></span></b><br>
-                    <br>
-
-                    Choose Batchs:
-
+                    <p>Transactions:</p>
                     <ul>
-                    @foreach ($batchs as $user)
-                        <li><a href="#" var="batch" k="{{ json_encode($user) }}">{{ $user->name }}</a></li>
+                    @foreach ($transactions as $user)
+                        <li><a href="#">{{ json_encode($user) }}</a></li>
                     @endforeach
                     </ul>
-
-                    <input type="text" value="" placeholder="New Batch"> <input type="button" value="New Batch"/>
-                    
                 </div>
             </div>
         </div>

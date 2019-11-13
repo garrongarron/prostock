@@ -49527,7 +49527,7 @@ __webpack_require__.r(__webpack_exports__);
       return messages[v] + '"' + that.innerHTML + '"';
     }
 
-    return 'Are you sure?';
+    return null;
   };
 
   var triggerAction = function triggerAction(that) {
@@ -49543,6 +49543,10 @@ __webpack_require__.r(__webpack_exports__);
 
   for (var i = 0; i < a.length; i++) {
     a[i].addEventListener('click', function (event) {
+      if (getMsg(this) === null) {
+        return false;
+      }
+
       if (!confirm(getMsg(this))) {
         event.preventDefault();
       } else {
@@ -49555,6 +49559,7 @@ __webpack_require__.r(__webpack_exports__);
 
   for (var i = 0; i < span.length; i++) {
     var text = span[i].getAttribute('text');
+    console.log(text);
     span[i].innerHTML = window.storage.getLocal(text).name; // console.log(window.storage.getLocal(text).name)
   }
 
@@ -49565,11 +49570,35 @@ __webpack_require__.r(__webpack_exports__);
   };
 
   window.save = function () {
+    var item = document.querySelector('#item-code').value;
+
+    if (item == '') {
+      alert("You mut to select an Item");
+    }
+
     console.log({
       from: window.storage.getLocal('from').id,
       to: window.storage.getLocal('to').id,
       batch: window.storage.getLocal('batch').id,
       item: window.storage.getLocal('item')
+    });
+    fetch('http://localhost:88/api/transactions', {
+      method: 'POST',
+      body: JSON.stringify({
+        from: window.storage.getLocal('from').id,
+        to: window.storage.getLocal('to').id,
+        batch: window.storage.getLocal('batch').id,
+        item: window.storage.getLocal('item'),
+        user: 1
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    }).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      console.log(json);
+      document.querySelector('#item-code').value = '';
     });
   };
 })(window, document);
