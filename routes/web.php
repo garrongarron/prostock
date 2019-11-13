@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/locations', 'HomeController@locations')->name('locations');
+Route::get('/batchs', 'HomeController@batchs')->name('batchs');
+Route::get('/items', 'HomeController@items')->name('items');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
